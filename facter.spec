@@ -5,9 +5,9 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.3.7
+Version: 1.3.8
 Release: 1%{?dist}
-License: GPL
+License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
 Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tgz
@@ -39,12 +39,10 @@ rm -rf %{buildroot}
 mkdir %{buildroot}
 
 %{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}
-%{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}/facter
 %{__install} -d -m0755 %{buildroot}%{_bindir}
 %{__install} -d -m0755 %{buildroot}%{_docdir}/%{name}-%{version}
 
-%{__install} -p -m0644 lib/*.rb %{buildroot}%{ruby_sitelibdir}
-%{__install} -p -m0644 lib/facter/*.rb %{buildroot}%{ruby_sitelibdir}/facter
+cp -pr lib/* %{buildroot}%{ruby_sitelibdir}
 %{__install} -p -m0755 bin/facter %{buildroot}%{_bindir}
 
 %clean
@@ -60,6 +58,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 24 2007 David Lutterkort <dlutter@redhat.com> - 1.3.8-1
+- Update license tag
+- Copy all of lib/ into ruby_sitelibdir
+
 * Thu Mar 29 2007 David Lutterkort <dlutter@redhat.com> - 1.3.7-1
 - New version
 
