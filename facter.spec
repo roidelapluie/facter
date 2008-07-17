@@ -6,7 +6,7 @@
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
 Version: 1.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
@@ -36,7 +36,7 @@ sed -i -e 's@^#!.*$@#! /usr/bin/ruby@' bin/facter
 
 %install
 rm -rf %{buildroot}
-mkdir %{buildroot}
+mkdir -p %{buildroot}
 
 %{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}
 %{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}/facter
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 17 2008 David Lutterkort <dlutter@redhat.com> - 1.5.0-3
+- Change 'mkdir' in install to 'mkdir -p'
+
 * Thu Jul 17 2008 David Lutterkort <dlutter@redhat.com> - 1.5.0-2
 - Remove files that were listed twice in files section
 
