@@ -1,11 +1,11 @@
 %{!?ruby_sitelibdir: %define ruby_sitelibdir %(ruby -rrbconfig -e 'puts Config::CONFIG["sitelibdir"]')}
 
-%define has_ruby_abi 0%{?fedora:%fedora} >= 5 || 0%{?rhel:%rhel} >= 5
+%define has_ruby_abi 0%{?fedora} || 0%{?rhel} >= 5
 %define has_ruby_noarch %has_ruby_abi
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.1
+Version: 1.5.2
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
@@ -13,7 +13,7 @@ URL: http://reductivelabs.com/projects/facter
 Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tgz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
-BuildArchitectures: noarch
+BuildArch: noarch
 %endif
 
 Requires: ruby >= 1.8.1
@@ -64,6 +64,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Sep 09 2008 Todd Zullinger <tmz@pobox.com> - 1.5.2-1
+- New version
+- Simplify spec file checking for Fedora and RHEL versions
+
 * Mon Sep  8 2008 David Lutterkort <dlutter@redhat.com> - 1.5.1-1
 - New version
 
