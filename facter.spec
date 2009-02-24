@@ -6,7 +6,7 @@
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
 Version: 1.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Tue Sep 09 2008 Todd Zullinger <tmz@pobox.com> - 1.5.2-1
 - New version
 - Simplify spec file checking for Fedora and RHEL versions
