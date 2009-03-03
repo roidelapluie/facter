@@ -5,12 +5,14 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.2
-Release: 2%{?dist}
+Version: 1.5.4
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
 Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tgz
+# http://github.com/reductivelabs/facter/commit/75db918c37a9fef36c829105d1f8a99ff8bcf751
+Patch0: facter-1.5.4-libperms.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
 BuildArch: noarch
@@ -30,26 +32,13 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
+%patch0 -p1 -b .libperms
 
 %build
-sed -i -e 's@^#!.*$@#! /usr/bin/ruby@' bin/facter
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}
-
-%{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}
-%{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}/facter
-%{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}/facter/util
-%{__install} -d -m0755 %{buildroot}%{ruby_sitelibdir}/facter/util/plist
-%{__install} -d -m0755 %{buildroot}%{_bindir}
-%{__install} -d -m0755 %{buildroot}%{_docdir}/%{name}-%{version}
-
-%{__install} -p -m0644 lib/*.rb %{buildroot}%{ruby_sitelibdir}
-%{__install} -p -m0644 lib/facter/*.rb %{buildroot}%{ruby_sitelibdir}/facter
-%{__install} -p -m0644 lib/facter/util/*.rb %{buildroot}%{ruby_sitelibdir}/facter/util
-%{__install} -p -m0644 lib/facter/util/plist/*.rb %{buildroot}%{ruby_sitelibdir}/facter/util/plist
-%{__install} -p -m0755 bin/facter %{buildroot}%{_bindir}
+ruby install.rb --destdir=%{buildroot} --quick --no-rdoc
 
 %clean
 rm -rf %{buildroot}
@@ -64,6 +53,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Feb 28 2009 Todd Zullinger <tmz@pobox.com> - 1.5.4-1
+- New version
+- Use upstream install script
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
