@@ -5,14 +5,12 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
-Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tgz
-# http://github.com/reductivelabs/facter/commit/75db918c37a9fef36c829105d1f8a99ff8bcf751
-Patch0: facter-1.5.4-libperms.patch
+Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
 BuildArch: noarch
@@ -32,7 +30,6 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
-%patch0 -p1 -b .libperms
 
 %build
 
@@ -53,6 +50,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri May 22 2009 Todd Zullinger <tmz@pobox.com> - 1.5.5-1
+- Update to 1.5.5
+- Drop upstreamed libperms patch
+
 * Sat Feb 28 2009 Todd Zullinger <tmz@pobox.com> - 1.5.4-1
 - New version
 - Use upstream install script
