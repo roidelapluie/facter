@@ -5,15 +5,15 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.5
-Release: 3%{?dist}
+Version: 1.5.7
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://reductivelabs.com/projects/facter
 Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tar.gz
 
 # Bugzilla 508037, or upstream ticket 2355 (drop in 1.6.0)
-Patch0: facter-1.5.5-facts-hanging-on-_proc_xen_capabilities.patch
+Patch0: facter-1.5.7-facts-hanging-on-_proc_xen_capabilities.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -55,6 +55,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Sep 25 2009 Todd Zullinger <tmz@pobox.com> - 1.5.7-1
+- Update to 1.5.7
+- Update #508037 patch from upstream ticket
+
 * Wed Aug 12 2009 Jeroen van Meeuwen <j.van.meeuwen@ogd.nl> - 1.5.5-3
 - Fix #508037 or upstream #2355
 

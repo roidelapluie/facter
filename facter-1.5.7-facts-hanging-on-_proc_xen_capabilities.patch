@@ -1,0 +1,28 @@
+From 4056c6474460535793f5d0c38521306d973571ca Mon Sep 17 00:00:00 2001
+From: Bernhard Furtmueller <furti@1012surf.net>
+Date: Fri, 11 Sep 2009 01:09:22 -0400
+Subject: [PATCH/facter] Fixed #2355 read hang on /proc/xen/capabilties on RHEL 4.7
+
+---
+ lib/facter/virtual.rb |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/facter/virtual.rb b/lib/facter/virtual.rb
+index 78413a9..6f3f5a2 100644
+--- a/lib/facter/virtual.rb
++++ b/lib/facter/virtual.rb
+@@ -25,9 +25,9 @@ Facter.add("virtual") do
+             if FileTest.exists?("/sys/bus/xen")
+                 result = "xenu"
+             end
+-        
++
+             if FileTest.exists?("/proc/xen/capabilities")
+-                txt = File.read("/proc/xen/capabilities")
++                txt = Facter::Util::Resolution.exec("cat /proc/xen/capabilities")
+                 if txt =~ /control_d/i
+                     result = "xen0"
+                 end
+-- 
+1.6.4.2
+
