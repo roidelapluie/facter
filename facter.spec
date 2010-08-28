@@ -5,15 +5,13 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.7
+Version: 1.5.8
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
-URL: http://reductivelabs.com/projects/facter
-Source0: http://reductivelabs.com/downloads/facter/%{name}-%{version}.tar.gz
-
-# Bugzilla 508037, or upstream ticket 2355 (drop in 1.6.0)
-Patch0: facter-1.5.7-facts-hanging-on-_proc_xen_capabilities.patch
+URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
+Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
+Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.sign
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -34,7 +32,6 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 
@@ -55,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Aug 28 2010 Todd Zullinger <tmz@pobox.com> - 1.5.8-1
+- Update to 1.5.8
+
 * Fri Sep 25 2009 Todd Zullinger <tmz@pobox.com> - 1.5.7-1
 - Update to 1.5.7
 - Update #508037 patch from upstream ticket

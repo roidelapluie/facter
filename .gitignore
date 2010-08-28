@@ -1,1 +1,5 @@
-facter-1.5.7.tar.gz
+*~
+*.rpm
+*.tar.gz
+/.build*.log
+/facter-*/
