@@ -12,6 +12,9 @@ Group: System Environment/Base
 URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
 Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
+# http://projects.puppetlabs.com/issues/7682
+# Improve Scientific Linux support, courtesy of Orion Poplawski
+Patch0: http://projects.puppetlabs.com/attachments/download/1388/facter-1.5.9-sl.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -32,6 +35,7 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 
@@ -54,6 +58,7 @@ rm -rf %{buildroot}
 %changelog
 * Thu May 26 2011 Todd Zullinger <tmz@pobox.com> - 1.5.9-1
 - Update to 1.5.9
+- Improve Scientific Linux support, courtesy of Orion Poplawski (upstream #7682)
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
