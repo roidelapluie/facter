@@ -5,13 +5,13 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.8
-Release: 2%{?dist}
+Version: 1.5.9
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
-Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.sign
+Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 26 2011 Todd Zullinger <tmz@pobox.com> - 1.5.9-1
+- Update to 1.5.9
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
