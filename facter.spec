@@ -5,7 +5,7 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.5.9
+Version: 1.6.0
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
@@ -14,7 +14,7 @@ Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
 Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
 # http://projects.puppetlabs.com/issues/7682
 # Improve Scientific Linux support, courtesy of Orion Poplawski
-Patch0: http://projects.puppetlabs.com/attachments/download/1388/facter-1.5.9-sl.patch
+Patch0: 0001-7682-Added-Scientific-Linux-facts.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -49,13 +49,15 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}/facter
-%{ruby_sitelibdir}/facter.rb
-%{ruby_sitelibdir}/facter
-%doc CHANGELOG COPYING INSTALL LICENSE README
+%doc CHANGELOG INSTALL LICENSE README.md
+%{_bindir}/%{name}
+%{ruby_sitelibdir}/%{name}*
 
 
 %changelog
+* Thu Jul 14 2011 Todd Zullinger <tmz@pobox.com> - 1.6.0-1
+- Update to 1.6.0
+
 * Thu May 26 2011 Todd Zullinger <tmz@pobox.com> - 1.5.9-1
 - Update to 1.5.9
 - Improve Scientific Linux support, courtesy of Orion Poplawski (upstream #7682)

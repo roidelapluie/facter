@@ -1,16 +1,34 @@
-diff -up facter-1.5.9/lib/facter/hardwareisa.rb.sl facter-1.5.9/lib/facter/hardwareisa.rb
---- facter-1.5.9/lib/facter/hardwareisa.rb.sl	2011-05-20 12:06:13.000000000 -0600
-+++ facter-1.5.9/lib/facter/hardwareisa.rb	2011-05-26 09:10:20.234403286 -0600
-@@ -1,4 +1,4 @@
+From 6360e5a576f7643ac61577abf01110c7d5689afc Mon Sep 17 00:00:00 2001
+From: Orion Poplawski <orion@cora.nwra.com>
+Date: Mon, 27 Jun 2011 09:31:31 -0700
+Subject: [PATCH] (#7682) Added Scientific Linux facts
+
+Added facts to differentiate Scientific Linux from Redhat.
+---
+ lib/facter/hardwareisa.rb                |    2 +-
+ lib/facter/lsbmajdistrelease.rb          |    2 +-
+ lib/facter/macaddress.rb                 |    2 +-
+ lib/facter/operatingsystemrelease.rb     |    4 ++--
+ lib/facter/uniqueid.rb                   |    2 +-
+ spec/unit/operatingsystemrelease_spec.rb |   17 +++++++++--------
+ 6 files changed, 15 insertions(+), 14 deletions(-)
+
+diff --git a/lib/facter/hardwareisa.rb b/lib/facter/hardwareisa.rb
+index 9d0830e..87d5391 100644
+--- a/lib/facter/hardwareisa.rb
++++ b/lib/facter/hardwareisa.rb
+@@ -12,5 +12,5 @@
+ 
  Facter.add(:hardwareisa) do
      setcode 'uname -p', '/bin/sh'
 -    confine :operatingsystem => %w{Solaris Linux Fedora RedHat CentOS SuSE SLES Debian Ubuntu Gentoo FreeBSD OpenBSD NetBSD OEL OVS GNU/kFreeBSD}
 +    confine :operatingsystem => %w{Solaris Linux Fedora RedHat CentOS Scientific SuSE SLES Debian Ubuntu Gentoo FreeBSD OpenBSD NetBSD OEL OVS GNU/kFreeBSD}
  end
-diff -up facter-1.5.9/lib/facter/lsbmajdistrelease.rb.sl facter-1.5.9/lib/facter/lsbmajdistrelease.rb
---- facter-1.5.9/lib/facter/lsbmajdistrelease.rb.sl	2011-05-20 12:06:13.000000000 -0600
-+++ facter-1.5.9/lib/facter/lsbmajdistrelease.rb	2011-05-26 09:10:27.690134946 -0600
-@@ -3,7 +3,7 @@
+diff --git a/lib/facter/lsbmajdistrelease.rb b/lib/facter/lsbmajdistrelease.rb
+index 3659541..4fa68e9 100644
+--- a/lib/facter/lsbmajdistrelease.rb
++++ b/lib/facter/lsbmajdistrelease.rb
+@@ -15,7 +15,7 @@
  require 'facter'
  
  Facter.add("lsbmajdistrelease") do
@@ -19,10 +37,11 @@ diff -up facter-1.5.9/lib/facter/lsbmajdistrelease.rb.sl facter-1.5.9/lib/facter
      setcode do
          if /(\d*)\./i =~ Facter.value(:lsbdistrelease)
              result=$1
-diff -up facter-1.5.9/lib/facter/macaddress.rb.sl facter-1.5.9/lib/facter/macaddress.rb
---- facter-1.5.9/lib/facter/macaddress.rb.sl	2011-05-20 12:06:13.000000000 -0600
-+++ facter-1.5.9/lib/facter/macaddress.rb	2011-05-26 09:10:35.028870874 -0600
-@@ -1,7 +1,7 @@
+diff --git a/lib/facter/macaddress.rb b/lib/facter/macaddress.rb
+index 54c3c84..1e60064 100644
+--- a/lib/facter/macaddress.rb
++++ b/lib/facter/macaddress.rb
+@@ -10,7 +10,7 @@
  require 'facter/util/macaddress'
  
  Facter.add(:macaddress) do
@@ -31,10 +50,13 @@ diff -up facter-1.5.9/lib/facter/macaddress.rb.sl facter-1.5.9/lib/facter/macadd
      setcode do
          ether = []
          output = %x{/sbin/ifconfig -a}
-diff -up facter-1.5.9/lib/facter/operatingsystemrelease.rb.sl facter-1.5.9/lib/facter/operatingsystemrelease.rb
---- facter-1.5.9/lib/facter/operatingsystemrelease.rb.sl	2011-05-20 12:06:13.000000000 -0600
-+++ facter-1.5.9/lib/facter/operatingsystemrelease.rb	2011-05-26 09:11:08.932650813 -0600
-@@ -1,8 +1,8 @@
+diff --git a/lib/facter/operatingsystemrelease.rb b/lib/facter/operatingsystemrelease.rb
+index 347fe7f..e48330f 100644
+--- a/lib/facter/operatingsystemrelease.rb
++++ b/lib/facter/operatingsystemrelease.rb
+@@ -16,10 +16,10 @@
+ #
+ 
  Facter.add(:operatingsystemrelease) do
 -    confine :operatingsystem => %w{CentOS Fedora oel ovs RedHat MeeGo}
 +    confine :operatingsystem => %w{CentOS Fedora oel ovs RedHat MeeGo Scientific}
@@ -45,19 +67,21 @@ diff -up facter-1.5.9/lib/facter/operatingsystemrelease.rb.sl facter-1.5.9/lib/f
              releasefile = "/etc/redhat-release"
          when "Fedora"
              releasefile = "/etc/fedora-release"
-diff -up facter-1.5.9/lib/facter/uniqueid.rb.sl facter-1.5.9/lib/facter/uniqueid.rb
---- facter-1.5.9/lib/facter/uniqueid.rb.sl	2011-04-22 14:06:55.000000000 -0600
-+++ facter-1.5.9/lib/facter/uniqueid.rb	2011-05-26 09:11:17.418345424 -0600
+diff --git a/lib/facter/uniqueid.rb b/lib/facter/uniqueid.rb
+index aaeaa12..842d329 100644
+--- a/lib/facter/uniqueid.rb
++++ b/lib/facter/uniqueid.rb
 @@ -1,4 +1,4 @@
  Facter.add(:uniqueid) do
      setcode 'hostid', '/bin/sh'
 -    confine :operatingsystem => %w{Solaris Linux Fedora RedHat CentOS SuSE SLES Debian Ubuntu Gentoo AIX OEL OVS GNU/kFreeBSD}
 +    confine :operatingsystem => %w{Solaris Linux Fedora RedHat CentOS Scientific SuSE SLES Debian Ubuntu Gentoo AIX OEL OVS GNU/kFreeBSD}
  end
-diff -up facter-1.5.9/spec/unit/operatingsystemrelease_spec.rb.sl facter-1.5.9/spec/unit/operatingsystemrelease_spec.rb
---- facter-1.5.9/spec/unit/operatingsystemrelease_spec.rb.sl	2011-04-22 14:06:55.000000000 -0600
-+++ facter-1.5.9/spec/unit/operatingsystemrelease_spec.rb	2011-05-26 09:11:39.517550163 -0600
-@@ -15,14 +15,15 @@ describe "Operating System Release fact"
+diff --git a/spec/unit/operatingsystemrelease_spec.rb b/spec/unit/operatingsystemrelease_spec.rb
+index 739a20a..fb983ce 100755
+--- a/spec/unit/operatingsystemrelease_spec.rb
++++ b/spec/unit/operatingsystemrelease_spec.rb
+@@ -15,14 +15,15 @@ describe "Operating System Release fact" do
      end
  
      test_cases = {
@@ -81,3 +105,6 @@ diff -up facter-1.5.9/spec/unit/operatingsystemrelease_spec.rb.sl facter-1.5.9/s
      }
  
      test_cases.each do |system, file|
+-- 
+1.7.6.rc1
+
