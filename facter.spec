@@ -6,8 +6,8 @@
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
 Version: 1.6.0
-Release: 1%{?dist}
-License: GPLv2+
+Release: 2%{?dist}
+License: ASL 2.0
 Group: System Environment/Base
 URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jul 27 2011 Todd Zullinger <tmz@pobox.com> - 1.6.0-2
+- Update license tag, GPLv2+ -> ASL 2.0
+
 * Thu Jul 14 2011 Todd Zullinger <tmz@pobox.com> - 1.6.0-1
 - Update to 1.6.0
 
