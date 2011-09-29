@@ -1,29 +1,30 @@
-%{!?ruby_sitelibdir: %define ruby_sitelibdir %(ruby -rrbconfig -e 'puts Config::CONFIG["sitelibdir"]')}
+%{!?ruby_sitelibdir: %global ruby_sitelibdir %(ruby -rrbconfig -e 'puts Config::CONFIG["sitelibdir"]')}
 
-%define has_ruby_abi 0%{?fedora} || 0%{?rhel} >= 5
-%define has_ruby_noarch %has_ruby_abi
+%global has_ruby_abi 0%{?fedora} || 0%{?rhel} >= 5
+%global has_ruby_noarch %has_ruby_abi
 
-Summary: Ruby module for collecting simple facts about a host operating system
-Name: facter
-Version: 1.6.1
-Release: 1%{?dist}
-License: ASL 2.0
-Group: System Environment/Base
-URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
-Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
-Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
+Name:           facter
+Version:        1.6.1
+Release:        1%{?dist}
+Summary:        Ruby module for collecting simple facts about a host operating system
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Group:          System Environment/Base
+License:        ASL 2.0
+URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
+Source0:        http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
+Source1:        http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 %if %has_ruby_noarch
 BuildArch: noarch
 %endif
 
-Requires: ruby >= 1.8.1
-Requires: which
+Requires:       ruby >= 1.8.1
+Requires:       which
 %if %has_ruby_abi
-Requires: ruby(abi) = 1.8
+Requires:       ruby(abi) = 1.8
 %endif
-BuildRequires: ruby >= 1.8.1
+BuildRequires:  ruby >= 1.8.1
 
 %description
 Ruby module for collecting simple facts about a host Operating
@@ -33,11 +34,15 @@ operating system. Additional facts can be added through simple Ruby scripts
 %prep
 %setup -q
 
+
 %build
+# Nothing to build
+
 
 %install
 rm -rf %{buildroot}
 ruby install.rb --destdir=%{buildroot} --quick --no-rdoc
+
 
 %clean
 rm -rf %{buildroot}
@@ -53,6 +58,7 @@ rm -rf %{buildroot}
 %changelog
 * Thu Sep 29 2011 Todd Zullinger <tmz@pobox.com> - 1.6.1-1
 - Update to 1.6.1
+- Minor spec file reformatting
 
 * Wed Jul 27 2011 Todd Zullinger <tmz@pobox.com> - 1.6.0-2
 - Update license tag, GPLv2+ -> ASL 2.0
