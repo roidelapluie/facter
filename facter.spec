@@ -5,16 +5,13 @@
 
 Summary: Ruby module for collecting simple facts about a host operating system
 Name: facter
-Version: 1.6.0
-Release: 2%{?dist}
+Version: 1.6.1
+Release: 1%{?dist}
 License: ASL 2.0
 Group: System Environment/Base
 URL: http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz
 Source1: http://puppetlabs.com/downloads/%{name}/%{name}-%{version}.tar.gz.asc
-# http://projects.puppetlabs.com/issues/7682
-# Improve Scientific Linux support, courtesy of Orion Poplawski
-Patch0: 0001-7682-Added-Scientific-Linux-facts.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %has_ruby_noarch
@@ -35,7 +32,6 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 
@@ -55,6 +51,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Sep 29 2011 Todd Zullinger <tmz@pobox.com> - 1.6.1-1
+- Update to 1.6.1
+
 * Wed Jul 27 2011 Todd Zullinger <tmz@pobox.com> - 1.6.0-2
 - Update license tag, GPLv2+ -> ASL 2.0
 
