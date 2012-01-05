@@ -19,12 +19,12 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %endif
 
+BuildRequires:  ruby >= 1.8.1
 Requires:       ruby >= 1.8.1
-Requires:       which
 %if %has_ruby_abi
 Requires:       ruby(abi) = 1.8
 %endif
-BuildRequires:  ruby >= 1.8.1
+Requires:       which
 
 %description
 Ruby module for collecting simple facts about a host Operating
