@@ -20,6 +20,7 @@ BuildArch: noarch
 %endif
 
 BuildRequires:  ruby >= 1.8.1
+Requires:       dmidecode
 Requires:       ruby >= 1.8.1
 %if %has_ruby_abi
 Requires:       ruby(abi) = 1.8
@@ -58,6 +59,7 @@ rm -rf %{buildroot}
 %changelog
 * Thu Jan 05 2012 Todd Zullinger <tmz@pobox.com> - 1.6.4-1
 - Update to 1.6.4
+- Require dmidecode (upstream #11041)
 
 * Sat Oct 15 2011 Todd Zullinger <tmz@pobox.com> - 1.6.2-1
 - Update to 1.6.2
