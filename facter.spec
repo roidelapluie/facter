@@ -21,6 +21,8 @@ BuildArch: noarch
 
 BuildRequires:  ruby >= 1.8.1
 Requires:       dmidecode
+Requires:       net-tools
+Requires:       pciutils
 Requires:       ruby >= 1.8.1
 %if %has_ruby_abi
 Requires:       ruby(abi) = 1.8
@@ -59,6 +61,7 @@ rm -rf %{buildroot}
 %changelog
 * Thu Jan 26 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-1
 - Update to 1.6.5
+- Require net-tools and pciutils, thanks to Dominic Cleal (#783749)
 
 * Thu Jan 05 2012 Todd Zullinger <tmz@pobox.com> - 1.6.4-1
 - Update to 1.6.4
