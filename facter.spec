@@ -4,7 +4,7 @@
 %global has_ruby_noarch %has_ruby_abi
 
 Name:           facter
-Version:        1.6.4
+Version:        1.6.5
 Release:        1%{?dist}
 Summary:        Ruby module for collecting simple facts about a host operating system
 
@@ -57,6 +57,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 26 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-1
+- Update to 1.6.5
+
 * Thu Jan 05 2012 Todd Zullinger <tmz@pobox.com> - 1.6.4-1
 - Update to 1.6.4
 - Require dmidecode (upstream #11041)
