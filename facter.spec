@@ -1,11 +1,9 @@
-%{!?ruby_sitelibdir: %global ruby_sitelibdir %(ruby -rrbconfig -e 'puts Config::CONFIG["sitelibdir"]')}
-
 %global has_ruby_abi 0%{?fedora} || 0%{?rhel} >= 5
 %global has_ruby_noarch %has_ruby_abi
 
 Name:           facter
 Version:        1.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ruby module for collecting simple facts about a host operating system
 
 Group:          System Environment/Base
@@ -20,12 +18,16 @@ BuildArch: noarch
 %endif
 
 BuildRequires:  ruby >= 1.8.1
+BuildRequires:  ruby-devel
+BuildRequires:  rubygem(rspec-core)
+BuildRequires:  rubygem(mocha)
+BuildRequires:  net-tools
 Requires:       dmidecode
 Requires:       net-tools
 Requires:       pciutils
 Requires:       ruby >= 1.8.1
 %if %has_ruby_abi
-Requires:       ruby(abi) = 1.8
+Requires:       ruby(abi) = 1.9.1
 %endif
 Requires:       which
 
@@ -44,21 +46,25 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %install
 rm -rf %{buildroot}
-ruby install.rb --destdir=%{buildroot} --quick --no-rdoc
-
+ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{ruby_vendorlibdir}
 
 %clean
 rm -rf %{buildroot}
 
+%check
+rspec spec
 
 %files
 %defattr(-,root,root,-)
 %doc CHANGELOG INSTALL LICENSE README.md
 %{_bindir}/%{name}
-%{ruby_sitelibdir}/%{name}*
+%{ruby_vendorlibdir}/%{name}*
 
 
 %changelog
+* Thu Feb 02 2012 Bohuslav Kabrda <bkabrda@redhat.com> - 1.6.5-2
+- Rebuilt for Ruby 1.9.3.
+
 * Thu Jan 26 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-1
 - Update to 1.6.5
 - Require net-tools and pciutils, thanks to Dominic Cleal (#783749)
