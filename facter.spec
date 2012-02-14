@@ -1,9 +1,17 @@
-%global has_ruby_abi 0%{?fedora} || 0%{?rhel} >= 5
-%global has_ruby_noarch %has_ruby_abi
+# F-17 and above have ruby-1.9.x, and place libs in a different location
+%if 0%{?fedora} >= 17
+%global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorlibdir"]')
+%else
+%global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')
+%endif
+
+%global enable_check    0%{?fedora}
+
+%global ruby_version    %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["ruby_version"]')
 
 Name:           facter
 Version:        1.6.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ruby module for collecting simple facts about a host operating system
 
 Group:          System Environment/Base
@@ -13,21 +21,22 @@ Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.g
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-%if %has_ruby_noarch
 BuildArch: noarch
-%endif
 
 BuildRequires:  ruby >= 1.8.1
 BuildRequires:  ruby-devel
-BuildRequires:  rubygem(rspec-core)
-BuildRequires:  rubygem(mocha)
+%if %{enable_check}
 BuildRequires:  net-tools
+BuildRequires:  rubygem(mocha)
+BuildRequires:  rubygem(rspec-core)
+%endif
+
 Requires:       dmidecode
 Requires:       net-tools
 Requires:       pciutils
-Requires:       ruby >= 1.8.1
-%if %has_ruby_abi
-Requires:       ruby(abi) = 1.9.1
+# Work around the lack of ruby in the default mock buildroot
+%if "%{ruby_version}"
+Requires:       ruby(abi) = %{ruby_version}
 %endif
 Requires:       which
 
@@ -46,22 +55,30 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %install
 rm -rf %{buildroot}
-ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{ruby_vendorlibdir}
+ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{facter_libdir}
+
 
 %clean
 rm -rf %{buildroot}
 
+
 %check
+%if %{enable_check}
 rspec spec
+%endif
+
 
 %files
 %defattr(-,root,root,-)
 %doc CHANGELOG INSTALL LICENSE README.md
 %{_bindir}/%{name}
-%{ruby_vendorlibdir}/%{name}*
+%{facter_libdir}/%{name}*
 
 
 %changelog
+* Mon Feb 13 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-3
+- Make spec file work for EPEL and Fedora
+
 * Thu Feb 02 2012 Bohuslav Kabrda <bkabrda@redhat.com> - 1.6.5-2
 - Rebuilt for Ruby 1.9.3.
 
