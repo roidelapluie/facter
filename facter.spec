@@ -21,8 +21,6 @@ Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.g
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildArch: noarch
-
 BuildRequires:  ruby >= 1.8.1
 BuildRequires:  ruby-devel
 %if %{enable_check}
@@ -31,9 +29,12 @@ BuildRequires:  rubygem(mocha)
 BuildRequires:  rubygem(rspec-core)
 %endif
 
+# dmidecode and pciutils are not available on all arches
+%ifarch %ix86 x86_64 ia64
 Requires:       dmidecode
-Requires:       net-tools
 Requires:       pciutils
+%endif
+Requires:       net-tools
 # Work around the lack of ruby in the default mock buildroot
 %if "%{ruby_version}"
 Requires:       ruby(abi) = %{ruby_version}
@@ -78,6 +79,7 @@ rspec spec
 %changelog
 * Mon Feb 13 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-3
 - Make spec file work for EPEL and Fedora
+- Drop BuildArch: noarch and make dmidecode/pciutils deps arch-specific
 
 * Thu Feb 02 2012 Bohuslav Kabrda <bkabrda@redhat.com> - 1.6.5-2
 - Rebuilt for Ruby 1.9.3.
