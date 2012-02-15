@@ -1,17 +1,18 @@
 # F-17 and above have ruby-1.9.x, and place libs in a different location
+# The checks also fail on older releases, due to an older mocha gem, it appears
 %if 0%{?fedora} >= 17
+%global enable_check    1
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorlibdir"]')
 %else
+%global enable_check    0
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')
 %endif
-
-%global enable_check    0%{?fedora}
 
 %global ruby_version    %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["ruby_version"]')
 
 Name:           facter
 Version:        1.6.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ruby module for collecting simple facts about a host operating system
 
 Group:          System Environment/Base
@@ -83,6 +84,9 @@ rspec spec
 
 
 %changelog
+* Wed Feb 15 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-4
+- Only run rspec checks on Fedora >= 17 
+
 * Mon Feb 13 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-3
 - Make spec file work for EPEL and Fedora
 - Drop BuildArch: noarch and make dmidecode/pciutils deps arch-specific
