@@ -21,6 +21,8 @@ Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.g
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 # https://bugzilla.redhat.com/790849
 Patch0:         0001-Make-ec2-facts-work-on-CentOS-again.patch
+# https://github.com/puppetlabs/facter/pull/171
+Patch1:         0001-Preserve-timestamps-when-installing-files.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -51,6 +53,7 @@ operating system. Additional facts can be added through simple Ruby scripts
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -84,6 +87,7 @@ rspec spec
 - Make spec file work for EPEL and Fedora
 - Drop BuildArch: noarch and make dmidecode/pciutils deps arch-specific
 - Make ec2 facts work on CentOS again (#790849, thanks to Jeremy Katz)
+- Preserve timestamps when installing files
 
 * Thu Feb 02 2012 Bohuslav Kabrda <bkabrda@redhat.com> - 1.6.5-2
 - Rebuilt for Ruby 1.9.3.
