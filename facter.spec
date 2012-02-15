@@ -19,6 +19,8 @@ License:        ASL 2.0
 URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+# https://bugzilla.redhat.com/790849
+Patch0:         0001-Make-ec2-facts-work-on-CentOS-again.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -48,6 +50,7 @@ operating system. Additional facts can be added through simple Ruby scripts
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
@@ -80,6 +83,7 @@ rspec spec
 * Mon Feb 13 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-3
 - Make spec file work for EPEL and Fedora
 - Drop BuildArch: noarch and make dmidecode/pciutils deps arch-specific
+- Make ec2 facts work on CentOS again (#790849, thanks to Jeremy Katz)
 
 * Thu Feb 02 2012 Bohuslav Kabrda <bkabrda@redhat.com> - 1.6.5-2
 - Rebuilt for Ruby 1.9.3.
