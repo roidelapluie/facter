@@ -17,7 +17,7 @@
 Name:           facter
 Version:        1.6.5
 Release:        5%{?dist}
-Summary:        Ruby module for collecting simple facts about a host operating system
+Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
 License:        ASL 2.0
@@ -51,9 +51,15 @@ Requires:       ruby(abi) = %{ruby_version}
 Requires:       which
 
 %description
-Ruby module for collecting simple facts about a host Operating
-system. Some of the facts are preconfigured, such as the hostname and the
-operating system. Additional facts can be added through simple Ruby scripts
+Facter is a lightweight program that gathers basic node information about the
+hardware and operating system. Facter is especially useful for retrieving
+things like operating system names, hardware characteristics, IP addresses, MAC
+addresses, and SSH keys.
+
+Facter is extensible and allows gathering of node information that may be
+custom or site specific. It is easy to extend by including your own custom
+facts. Facter can also be used to create conditional expressions in Puppet that
+key off the values returned by facts.
 
 %prep
 %setup -q
@@ -90,6 +96,7 @@ rspec spec
 %changelog
 * Sun Feb 19 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-5
 - Disable useless debuginfo generation (#795106, thanks to Ville Skyttä)
+- Update summary and description
 
 * Wed Feb 15 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-4
 - Only run rspec checks on Fedora >= 17 
