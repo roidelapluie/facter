@@ -88,7 +88,7 @@ rspec spec
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGELOG INSTALL LICENSE README.md
+%doc CHANGELOG LICENSE README.md
 %{_bindir}/%{name}
 %{facter_libdir}/%{name}*
 
@@ -97,6 +97,7 @@ rspec spec
 * Sun Feb 19 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-5
 - Disable useless debuginfo generation (#795106, thanks to Ville Skyttä)
 - Update summary and description
+- Remove INSTALL from %%doc
 
 * Wed Feb 15 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-4
 - Only run rspec checks on Fedora >= 17 
