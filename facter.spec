@@ -10,9 +10,13 @@
 
 %global ruby_version    %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["ruby_version"]')
 
+# There is nothing useful in debuginfo, facter is only an arch package to
+# allow arch-dependent requires.
+%global debug_package %{nil}
+
 Name:           facter
 Version:        1.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Ruby module for collecting simple facts about a host operating system
 
 Group:          System Environment/Base
@@ -84,6 +88,9 @@ rspec spec
 
 
 %changelog
+* Sun Feb 19 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-5
+- Disable useless debuginfo generation (#795106, thanks to Ville Skyttä)
+
 * Wed Feb 15 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-4
 - Only run rspec checks on Fedora >= 17 
 
