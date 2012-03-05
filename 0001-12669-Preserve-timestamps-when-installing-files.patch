@@ -1,22 +1,21 @@
-From 850bfabe67ab2ab62f0d3f16acc941a6043ca92d Mon Sep 17 00:00:00 2001
+From 6ec28631f5d0a1d5f3a9f9c4879950089fce5ed2 Mon Sep 17 00:00:00 2001
 From: Todd Zullinger <tmz@pobox.com>
 Date: Wed, 15 Feb 2012 10:07:11 -0500
-Subject: [PATCH/facter] Preserve timestamps when installing files
+Subject: [PATCH/facter] (#12669) Preserve timestamps when installing files
 
 Without the preserve option, ruby's FileUtils.install method uses the
 current time for all installed files.  For backup systems, package
 installs, and general pedantic sysadmins, preserving timestamps makes a
 small improvement in the world.
-
 ---
  install.rb |   12 ++++++------
  1 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/install.rb b/install.rb
-index ab233c3..e1785a2 100755
+index c5c3a11..909171f 100755
 --- a/install.rb
 +++ b/install.rb
-@@ -102,7 +102,7 @@ def do_libs(libs, strip = 'lib/')
+@@ -103,7 +103,7 @@ def do_libs(libs, strip = 'lib/')
      op = File.dirname(olf)
      FileUtils.makedirs(op, {:mode => 0755, :verbose => true})
      FileUtils.chmod(0755, op)
@@ -25,7 +24,7 @@ index ab233c3..e1785a2 100755
    end
  end
  
-@@ -113,7 +113,7 @@ def do_man(man, strip = 'man/')
+@@ -114,7 +114,7 @@ def do_man(man, strip = 'man/')
      om = File.dirname(omf)
      FileUtils.makedirs(om, {:mode => 0755, :verbose => true})
      FileUtils.chmod(0755, om)
@@ -34,7 +33,7 @@ index ab233c3..e1785a2 100755
      gzip = %x{which gzip}
      gzip.chomp!
      %x{#{gzip} -f #{omf}}
-@@ -412,12 +412,12 @@ def install_binfile(from, op_file, target)
+@@ -400,12 +400,12 @@ def install_binfile(from, op_file, target)
      installed_wrapper = false
  
      if File.exists?("#{from}.bat")
@@ -49,20 +48,20 @@ index ab233c3..e1785a2 100755
        installed_wrapper = true
      end
  
-@@ -431,13 +431,13 @@ set RUBY_BIN=%RUBY_BIN:\\=/%
+@@ -419,13 +419,13 @@ set RUBY_BIN=%RUBY_BIN:\\=/%
  "%RUBY_BIN%ruby.exe" -x "%RUBY_BIN%facter" %*
  EOS
-       File.open(tmp_file2, "w") { |cw| cw.puts cwv }
--      FileUtils.install(tmp_file2, File.join(target, "#{op_file}.bat"), :mode => 0755, :verbose => true)
-+      FileUtils.install(tmp_file2, File.join(target, "#{op_file}.bat"), :mode => 0755, :preserve => true, :verbose => true)
+       File.open(tmp_file2.path, "w") { |cw| cw.puts cwv }
+-      FileUtils.install(tmp_file2.path, File.join(target, "#{op_file}.bat"), :mode => 0755, :verbose => true)
++      FileUtils.install(tmp_file2.path, File.join(target, "#{op_file}.bat"), :mode => 0755, :preserve => true, :verbose => true)
  
-       File.unlink(tmp_file2)
+       tmp_file2.unlink
        installed_wrapper = true
      end
    end
--  FileUtils.install(tmp_file, File.join(target, op_file), :mode => 0755, :verbose => true)
-+  FileUtils.install(tmp_file, File.join(target, op_file), :mode => 0755, :preserve => true, :verbose => true)
-   File.unlink(tmp_file)
+-  FileUtils.install(tmp_file.path, File.join(target, op_file), :mode => 0755, :verbose => true)
++  FileUtils.install(tmp_file.path, File.join(target, op_file), :mode => 0755, :preserve => true, :verbose => true)
+   tmp_file.unlink
  end
  
 -- 

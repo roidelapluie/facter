@@ -15,8 +15,8 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.6.5
-Release:        5%{?dist}
+Version:        1.6.6
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -24,10 +24,8 @@ License:        ASL 2.0
 URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
-# https://bugzilla.redhat.com/790849
-Patch0:         0001-Make-ec2-facts-work-on-CentOS-again.patch
-# https://github.com/puppetlabs/facter/pull/171
-Patch1:         0001-Preserve-timestamps-when-installing-files.patch
+# https://github.com/puppetlabs/facter/commit/6ec2863
+Patch0:         0001-12669-Preserve-timestamps-when-installing-files.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -64,7 +62,6 @@ key off the values returned by facts.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 
 %build
@@ -94,6 +91,9 @@ rspec spec
 
 
 %changelog
+* Mon Mar 05 2012 Todd Zullinger <tmz@pobox.com> - 1.6.6-1
+- Update to 1.6.6
+
 * Sun Feb 19 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-5
 - Disable useless debuginfo generation (#795106, thanks to Ville Skyttä)
 - Update summary and description
