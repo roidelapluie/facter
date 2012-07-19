@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -91,6 +91,9 @@ rspec spec
 
 
 %changelog
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Mon Mar 05 2012 Todd Zullinger <tmz@pobox.com> - 1.6.6-1
 - Update to 1.6.6
 
