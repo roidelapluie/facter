@@ -15,17 +15,14 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.6.6
-Release:        2%{?dist}
+Version:        1.6.14
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
 License:        ASL 2.0
 URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
-Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
-# https://github.com/puppetlabs/facter/commit/6ec2863
-Patch0:         0001-12669-Preserve-timestamps-when-installing-files.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -34,6 +31,7 @@ BuildRequires:  ruby-devel
 BuildRequires:  net-tools
 BuildRequires:  rubygem(mocha)
 BuildRequires:  rubygem(rspec-core)
+BuildRequires:  rubygem(rspec)
 %endif
 
 # dmidecode and pciutils are not available on all arches
@@ -61,7 +59,6 @@ key off the values returned by facts.
 
 %prep
 %setup -q
-%patch0 -p1
 
 
 %build
@@ -85,12 +82,16 @@ rspec spec
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGELOG LICENSE README.md
+%doc LICENSE README.md
 %{_bindir}/%{name}
 %{facter_libdir}/%{name}*
+%{_mandir}/man8/%{name}*
 
 
 %changelog
+* Sun Nov 04 2012 <stahnma@fedoraproject.org> - 1.6.14-1
+- Rebase to 1.6.14 via bz 871211
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
@@ -103,7 +104,7 @@ rspec spec
 - Remove INSTALL from %%doc
 
 * Wed Feb 15 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-4
-- Only run rspec checks on Fedora >= 17 
+- Only run rspec checks on Fedora >= 17
 
 * Mon Feb 13 2012 Todd Zullinger <tmz@pobox.com> - 1.6.5-3
 - Make spec file work for EPEL and Fedora
