@@ -3,3 +3,4 @@
 *.tar.gz
 /.build*.log
 /facter-*/
+/facter-1.6.14.tar.gz.asc

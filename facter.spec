@@ -16,13 +16,14 @@
 
 Name:           facter
 Version:        1.6.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
 License:        ASL 2.0
 URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
+Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -89,6 +90,9 @@ rspec spec
 
 
 %changelog
+* Wed Nov 07 2012 <stahnma@fedoraproject.org> - 1.6.14-2
+- Add asc file back
+
 * Sun Nov 04 2012 <stahnma@fedoraproject.org> - 1.6.14-1
 - Rebase to 1.6.14 via bz 871211
 
