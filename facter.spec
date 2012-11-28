@@ -15,8 +15,8 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.6.14
-Release:        2%{?dist}
+Version:        1.6.15
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -90,11 +90,16 @@ rspec spec
 
 
 %changelog
-* Wed Nov 07 2012 <stahnma@fedoraproject.org> - 1.6.14-2
-- Add asc file back
+* Wed Nov 28 2012 Michael Stahnke <stahnma@puppetlabs.com> -  1.6.15-1
+- Rebase to 1.6.15
+- Put asc file back as Source1
 
-* Sun Nov 04 2012 <stahnma@fedoraproject.org> - 1.6.14-1
+* Fri Nov 09 2012 Michael Stahnke <stahnma@puppetlabs.com> - 1.6.13-2
+- Add patch for ec2 fix
 - Rebase to 1.6.14 via bz 871211
+
+* Mon Oct 29 2012 Michael Stahnke <stahnma@puppetlabs.com> - 1.6.13-1
+- Rebase to 1.6.13
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
