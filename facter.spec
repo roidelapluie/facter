@@ -15,7 +15,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.6.15
+Version:        1.6.16
 Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
@@ -90,6 +90,9 @@ rspec spec
 
 
 %changelog
+* Tue Dec 04 2012 Michael Stahnke <stahnma@puppetlabs.com> - 1.6.16-1
+- Update to 1.6.16
+
 * Wed Nov 28 2012 Michael Stahnke <stahnma@puppetlabs.com> -  1.6.15-1
 - Rebase to 1.6.15
 - Put asc file back as Source1
