@@ -15,8 +15,8 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.6.16
-Release:        2%{?dist}
+Version:        1.6.17
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -90,6 +90,9 @@ rspec spec
 
 
 %changelog
+* Mon Feb 25 2013 Jeroen van Meeuwen <vanmeeuwen@kolabsys.com> - 1.6.17-1
+- New upstream version, fixes rhbz #892734
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
