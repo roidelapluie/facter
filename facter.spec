@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -43,7 +43,7 @@ Requires:       pciutils
 Requires:       net-tools
 # Work around the lack of ruby in the default mock buildroot
 %if "%{ruby_version}"
-Requires:       ruby(abi) = %{ruby_version}
+Requires:       ruby(release)
 %endif
 Requires:       which
 
@@ -90,6 +90,9 @@ rspec spec
 
 
 %changelog
+* Tue Mar 12 2013 Vít Ondruch <vondruch@redhat.com> - 1.6.17-2
+- Rebuild for https://fedoraproject.org/wiki/Features/Ruby_2.0.0
+
 * Mon Feb 25 2013 Jeroen van Meeuwen <vanmeeuwen@kolabsys.com> - 1.6.17-1
 - New upstream version, fixes rhbz #892734
 
