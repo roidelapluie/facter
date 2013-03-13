@@ -43,7 +43,11 @@ Requires:       pciutils
 Requires:       net-tools
 # Work around the lack of ruby in the default mock buildroot
 %if "%{ruby_version}"
+%if 0%{?fedora} >= 19
 Requires:       ruby(release)
+%else
+Requires:       ruby(abi) = %{ruby_version}
+%endif
 %endif
 Requires:       which
 
