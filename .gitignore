@@ -1,9 +1,6 @@
 *~
 *.rpm
 *.tar.gz
+*.tar.gz.asc
 /.build*.log
 /facter-*/
-/facter-1.6.14.tar.gz.asc
-/facter-1.6.15.tar.gz.asc
-/facter-1.6.16.tar.gz.asc
-/facter-1.6.17.tar.gz.asc
