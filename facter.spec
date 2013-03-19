@@ -75,6 +75,10 @@ key off the values returned by facts.
 rm -rf %{buildroot}
 ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{facter_libdir}
 
+%if ! (0%{?fedora} || 0%{?rhel} >= 7)
+# Install man page, rubygem-rdoc is not available on older EL releases)
+install -D -pv -m 644 man/man8/%{name}.8 %{buildroot}/%{_mandir}/man8/%{name}.8
+%endif
 
 %postun
 # Work around issues where puppet fails to run after a facter update
@@ -108,6 +112,7 @@ rspec spec
 - Update to 1.6.18
 - Restart puppet in %%postun (#806370)
 - Require virt-what for improved KVM detection (#905592)
+- Ensure man page is installed on EL < 7
 
 * Tue Mar 12 2013 Vít Ondruch <vondruch@redhat.com> - 1.6.17-2
 - Rebuild for https://fedoraproject.org/wiki/Features/Ruby_2.0.0
