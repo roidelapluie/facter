@@ -39,6 +39,7 @@ BuildRequires:  rubygem(rspec)
 %ifarch %ix86 x86_64 ia64
 Requires:       dmidecode
 Requires:       pciutils
+Requires:       virt-what
 %endif
 Requires:       net-tools
 # Work around the lack of ruby in the default mock buildroot
@@ -106,6 +107,7 @@ rspec spec
 * Mon Mar 18 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-1
 - Update to 1.6.18
 - Restart puppet in %%postun (#806370)
+- Require virt-what for improved KVM detection (#905592)
 
 * Tue Mar 12 2013 Vít Ondruch <vondruch@redhat.com> - 1.6.17-2
 - Rebuild for https://fedoraproject.org/wiki/Features/Ruby_2.0.0
