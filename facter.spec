@@ -75,6 +75,15 @@ rm -rf %{buildroot}
 ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{facter_libdir}
 
 
+%postun
+# Work around issues where puppet fails to run after a facter update
+# https://bugzilla.redhat.com/806370
+# http://projects.puppetlabs.com/issues/12879
+if [ "$1" -ge 1 ]; then
+  /sbin/service puppet condrestart >/dev/null 2>&1 || :
+fi
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -96,6 +105,7 @@ rspec spec
 %changelog
 * Mon Mar 18 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-1
 - Update to 1.6.18
+- Restart puppet in %%postun (#806370)
 
 * Tue Mar 12 2013 Vít Ondruch <vondruch@redhat.com> - 1.6.17-2
 - Rebuild for https://fedoraproject.org/wiki/Features/Ruby_2.0.0
