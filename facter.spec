@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -24,6 +24,9 @@ License:        ASL 2.0
 URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
 Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
 Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+# https://bugzilla.redhat.com/719611
+# https://projects.puppetlabs.com/issues/19989
+Patch0:         0001-19989-Filter-virt-what-warnings-from-virtual-fact.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -65,6 +68,7 @@ key off the values returned by facts.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
@@ -108,6 +112,9 @@ rspec spec
 
 
 %changelog
+* Tue Apr 02 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-2
+- Apply upstream patch to filter virt-what warnings from virtual fact
+
 * Mon Mar 18 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-1
 - Update to 1.6.18
 - Restart puppet in %%postun (#806370)
