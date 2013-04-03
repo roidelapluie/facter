@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -112,6 +112,9 @@ rspec spec
 
 
 %changelog
+* Wed Apr 03 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-3
+- Avoid warnings when virt-what produces no output
+
 * Tue Apr 02 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-2
 - Apply upstream patch to filter virt-what warnings from virtual fact
 
