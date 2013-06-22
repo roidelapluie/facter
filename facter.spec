@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -27,6 +27,7 @@ Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.g
 # https://bugzilla.redhat.com/719611
 # https://projects.puppetlabs.com/issues/19989
 Patch0:         0001-19989-Filter-virt-what-warnings-from-virtual-fact.patch
+Patch1:		0002-976942-correct-ipaddress-non-loopback.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -69,6 +70,7 @@ key off the values returned by facts.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p0
 
 
 %build
@@ -112,6 +114,9 @@ rspec spec
 
 
 %changelog
+* Fri Jun 21 2013 Sam Kottler <skottler@fedoraproject.org> 1.6.18-4
+- Apply upstream patch to ensure the first non-127.0.0.1 interface
+
 * Wed Apr 03 2013 Todd Zullinger <tmz@pobox.com> - 1.6.18-3
 - Avoid warnings when virt-what produces no output
 
