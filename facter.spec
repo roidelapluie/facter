@@ -16,7 +16,7 @@
 
 Name:           facter
 Version:        1.6.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -114,6 +114,9 @@ rspec spec
 
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Fri Jun 21 2013 Sam Kottler <skottler@fedoraproject.org> 1.6.18-4
 - Apply upstream patch to ensure the first non-127.0.0.1 interface
 
