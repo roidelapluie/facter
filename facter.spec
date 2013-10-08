@@ -1,10 +1,14 @@
 # F-17 and above have ruby-1.9.x, and place libs in a different location
 # The checks also fail on older releases, due to an older mocha gem, it appears
+%if (0%{?fedora} >= 17 && 0%{?fedora} <= 19)
+%global enable_check 1
+%else
+%global enable_check 0
+%endif
+
 %if 0%{?fedora} >= 17
-%global enable_check    1
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorlibdir"]')
 %else
-%global enable_check    0
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')
 %endif
 
