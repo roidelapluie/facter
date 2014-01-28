@@ -78,6 +78,9 @@ key off the values returned by facts.
 rm -rf %{buildroot}
 ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{facter_libdir}
 
+# Create directory for external facts
+mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/facts.d
+
 %if ! (0%{?fedora} || 0%{?rhel} >= 7)
 # Install man page, rubygem-rdoc is not available on older EL releases)
 install -D -pv -m 644 man/man8/%{name}.8 %{buildroot}/%{_mandir}/man8/%{name}.8
@@ -106,6 +109,7 @@ rspec spec
 %defattr(-,root,root,-)
 %doc LICENSE README.md
 %{_bindir}/%{name}
+%{_sysconfdir}/%{name}
 %{facter_libdir}/%{name}*
 %{_mandir}/man8/%{name}*
 
@@ -113,6 +117,7 @@ rspec spec
 %changelog
 * Tue Jan 28 2014 Todd Zullinger <tmz@pobox.com> - 1.7.4-1
 - Update to 1.7.4
+- Create /etc/facter/facts.d for external facts
 
 * Tue Oct 8 2013 Sam Kottler <skottler@fedoraproject.org> - 1.7.3-1
 - Update to 1.7.3 (BZ #1016817)
