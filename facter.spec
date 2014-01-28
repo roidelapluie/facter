@@ -19,15 +19,15 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        1.7.3
+Version:        1.7.4
 Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
 License:        ASL 2.0
-URL:            http://www.puppetlabs.com/puppet/related-projects/%{name}/
-Source0:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
-Source1:        http://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+URL:            https://puppetlabs.com/%{name}
+Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
+Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -111,6 +111,9 @@ rspec spec
 
 
 %changelog
+* Tue Jan 28 2014 Todd Zullinger <tmz@pobox.com> - 1.7.4-1
+- Update to 1.7.4
+
 * Tue Oct 8 2013 Sam Kottler <skottler@fedoraproject.org> - 1.7.3-1
 - Update to 1.7.3 (BZ #1016817)
 
