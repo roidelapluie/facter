@@ -28,6 +28,8 @@ License:        ASL 2.0
 URL:            https://puppetlabs.com/%{name}
 Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+# https://tickets.puppetlabs.com/browse/FACT-86
+Patch0:         facter-1.7.4-dmidecode-drop-stderr.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  ruby >= 1.8.1
@@ -69,6 +71,8 @@ key off the values returned by facts.
 
 %prep
 %setup -q
+%patch0 -p1 -b .dmidecode-drop-stderr
+
 
 %build
 # Nothing to build
@@ -118,6 +122,7 @@ rspec spec
 * Tue Jan 28 2014 Todd Zullinger <tmz@pobox.com> - 1.7.4-1
 - Update to 1.7.4
 - Create /etc/facter/facts.d for external facts
+- Send dmiddecode errors to /dev/null in the virtual fact (FACT-86)
 
 * Tue Oct 8 2013 Sam Kottler <skottler@fedoraproject.org> - 1.7.3-1
 - Update to 1.7.3 (BZ #1016817)
