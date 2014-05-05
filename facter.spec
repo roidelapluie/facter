@@ -1,5 +1,5 @@
 # F-17 and above have ruby-1.9.x, and place libs in a different location
-%if 0%{?fedora} >= 17
+%if 0%{?fedora} >= 17 || 0%{?rhel} >= 7
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorlibdir"]')
 %else
 %global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')
@@ -20,7 +20,7 @@
 
 Name:           facter
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -48,7 +48,7 @@ Requires:       virt-what
 Requires:       net-tools
 # Work around the lack of ruby in the default mock buildroot
 %if "%{ruby_version}"
-%if 0%{?fedora} >= 19
+%if 0%{?fedora} >= 19 || 0%{?rhel} >= 7
 Requires:       ruby(release)
 %else
 Requires:       ruby(abi) = %{ruby_version}
@@ -115,6 +115,9 @@ rspec spec
 
 
 %changelog
+* Mon May 05 2014 Lubomir Rintel <lkundrak@v3.sk> - 2.0.1-2
+- Fix el7 conditionals as suggested by Orion Poplawski (BZ #1087946)
+
 * Tue Apr 29 2014 Sam Kottler <skottler@fedoraproject.org> - 2.0.1-1
 - Update to to 2.0.1
 
