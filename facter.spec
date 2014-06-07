@@ -20,7 +20,7 @@
 
 Name:           facter
 Version:        2.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -115,6 +115,9 @@ rspec spec
 
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon May 05 2014 Lubomir Rintel <lkundrak@v3.sk> - 2.0.1-2
 - Fix el7 conditionals as suggested by Orion Poplawski (BZ #1087946)
 
