@@ -19,8 +19,8 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        2.0.1
-Release:        4%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -30,7 +30,8 @@ Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.
 Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  ruby >= 1.8.1
+# Upstream claims to only support 1.8.7 and higher
+BuildRequires:  ruby >= 1.8.7
 BuildRequires:  ruby-devel
 %if %{enable_check}
 BuildRequires:  net-tools
@@ -115,6 +116,9 @@ rspec spec
 
 
 %changelog
+* Fri Oct 10 2014 Michael Stahnke <stahnma@fedoraproject.org> - 2.2.0-1
+- Update to 2.2.0 as per bz#1108041
+
 * Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
