@@ -19,7 +19,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
@@ -107,7 +107,6 @@ rspec spec
 
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE README.md
 %{_bindir}/%{name}
 %{_sysconfdir}/%{name}
@@ -116,6 +115,9 @@ rspec spec
 
 
 %changelog
+* Tue Jan 06 2015 Orion Poplawski <orion@cora.nwra.com> - 2.3.0-1
+- Update to 2.3.0
+
 * Fri Oct 10 2014 Michael Stahnke <stahnma@fedoraproject.org> - 2.2.0-1
 - Update to 2.2.0 as per bz#1108041
 
