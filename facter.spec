@@ -19,7 +19,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        2.4.1
+Version:        2.4.3
 Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
@@ -115,6 +115,9 @@ rspec spec
 
 
 %changelog
+* Thu Apr 2 2015 Orion Poplawski <orion@cora.nwra.com> - 2.4.3-1
+- Update to 2.4.3
+
 * Fri Feb 13 2015 Orion Poplawski <orion@cora.nwra.com> - 2.4.1-1
 - Update to 2.4.1
 
