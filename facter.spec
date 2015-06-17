@@ -20,7 +20,7 @@
 
 Name:           facter
 Version:        2.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -115,6 +115,9 @@ rspec spec
 
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Wed May 20 2015 Orion Poplawski <orion@cora.nwra.com> - 2.4.4-1
 - Update to 2.4.4
 
