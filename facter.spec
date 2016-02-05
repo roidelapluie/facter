@@ -20,7 +20,7 @@
 
 Name:           facter
 Version:        2.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -33,11 +33,16 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # Upstream claims to only support 1.8.7 and higher
 BuildRequires:  ruby >= 1.8.7
 BuildRequires:  ruby-devel
+BuildRequires:  which
 %if %{enable_check}
 BuildRequires:  net-tools
 BuildRequires:  rubygem(mocha)
 BuildRequires:  rubygem(rspec-core)
 BuildRequires:  rubygem(rspec)
+%endif
+%if 0%{?rhel} >= 7
+BuildRequires:  rubygem(rdoc)
+BuildRequires:  python-docutils
 %endif
 
 # dmidecode and pciutils are not available on all arches
@@ -115,6 +120,9 @@ rspec spec
 
 
 %changelog
+* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.4-3
+- Fix el7 build
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 

@@ -1,0 +1,17 @@
+sudo: required
+services:
+- docker
+script:
+- mkdir artifacts
+- docker build -t cfgmgmtsig/facter .
+- docker run -v $PWD/artifacts:/artifacts -t cfgmgmtsig/facter mv /root/rpmbuild/RPMS /artifacts
+- sudo chown -R "$USER:" $PWD/artifacts
+deploy:
+  provider: releases
+  api_key:
+    secure: JeDEBrUfAqBj1qrrjsXzIQJkfiW/lBfUyTLyF0LQDZd+lwDI8magG/kmmycnVLhlJYCB0IUCGrDQw43jbyHHZyH1zJes2nShZA+E/19XSO9aYVOQ7cazdUs7l0qz1YIA1y8p3C6VxMKTGvRZ7X3sMkcBtl9SPrG4uTnS2tmAgGyw+91pd+Iv3LUG/Zmf53YTCQorTxjLV9moRe+toxGA72P+iQ7anpOiZK2BXUbMxFr0C2nHKLog3PTh/e2eqxMt2CJ+IHSifsqtps6QvLW6QP72He4FI/a15EDlIi/OWGMNcysLokVuorz8y4PRP6Hw1ZOGT4ZelJHIz5Cx55kgQ4CT6NAqtJPcHT8j2vIKPfJ59Cz5AoH5QqndGrpjrJfPSVMc63g+p1paUxyH3CnwwmXF9XQ1LlxTN8Q7+Msg2NWG6hKICAHCYqt4Npf0HTiWuo+R9tMOOtka56sMKT9djdao47IRQBvHzgTCy68qXRUErOH2Hy/FIl7cVffwj1eU6tSm1tT1VJgtjfMnzhCn8hkCkcvrJzHudM9kuCI5EyGKaSXpLsgpKUoVl86k3UeE8WWYt/WNEpNDBuMs5WzuPjzVvog+wCJaTVkOGsMPaWwPbvyywLdOt5VlpaOmS4VoNi4n+kgdPgHuaCWbpdufBVPVy7plVVHW4JRgLgPLV2o=
+  skip_cleanup: true
+  file_glob: true
+  file: artifacts/RPMS/*/*.rpm
+  on:
+    tags: true
