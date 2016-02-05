@@ -1,26 +1,6 @@
-# F-17 and above have ruby-1.9.x, and place libs in a different location
-%if 0%{?fedora} >= 17 || 0%{?rhel} >= 7
-%global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorlibdir"]')
-%else
-%global facter_libdir   %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')
-%endif
-
-# Only enable checks on F-19, other releases fail for various reasons
-%if (0%{?fedora} >= 17 && 0%{?fedora} <= 19)
-%global enable_check 1
-%else
-%global enable_check 0
-%endif
-
-%global ruby_version    %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["ruby_version"]')
-
-# There is nothing useful in debuginfo, facter is only an arch package to
-# allow arch-dependent requires.
-%global debug_package %{nil}
-
 Name:           facter
-Version:        2.4.4
-Release:        3%{?dist}
+Version:        3.1.4
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -30,37 +10,16 @@ Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.
 Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# Upstream claims to only support 1.8.7 and higher
-BuildRequires:  ruby >= 1.8.7
-BuildRequires:  ruby-devel
-BuildRequires:  which
-%if %{enable_check}
-BuildRequires:  net-tools
-BuildRequires:  rubygem(mocha)
-BuildRequires:  rubygem(rspec-core)
-BuildRequires:  rubygem(rspec)
-%endif
-%if 0%{?rhel} >= 7
-BuildRequires:  rubygem(rdoc)
-BuildRequires:  python-docutils
-%endif
-
-# dmidecode and pciutils are not available on all arches
-%ifarch %ix86 x86_64 ia64
-Requires:       dmidecode
-Requires:       pciutils
-Requires:       virt-what
-%endif
-Requires:       net-tools
-# Work around the lack of ruby in the default mock buildroot
-%if "%{ruby_version}"
-%if 0%{?fedora} >= 19 || 0%{?rhel} >= 7
-Requires:       ruby(release)
-%else
-Requires:       ruby(abi) = %{ruby_version}
-%endif
-%endif
-Requires:       which
+BuildRequires:  boost-devel
+BuildRequires:  openssl-devel
+BuildRequires:  yaml-cpp-devel
+BuildRequires:  libblkid-devel
+BuildRequires:  libcurl-devel
+BuildRequires:  gcc-c++
+BuildRequires:  make
+BuildRequires:  wget
+BuildRequires:  tar
+BuildRequires:  cmake
 
 %description
 Facter is a lightweight program that gathers basic node information about the
@@ -77,20 +36,13 @@ key off the values returned by facts.
 %setup -q
 
 %build
-# Nothing to build
+%cmake .
+make %{?_smp_mflags}
+
 
 
 %install
-rm -rf %{buildroot}
-ruby install.rb --destdir=%{buildroot} --quick --no-rdoc --sitelibdir=%{facter_libdir}
-
-# Create directory for external facts
-mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/facts.d
-
-%if ! (0%{?fedora} || 0%{?rhel} >= 7)
-# Install man page, rubygem-rdoc is not available on older EL releases)
-install -D -pv -m 644 man/man8/%{name}.8 %{buildroot}/%{_mandir}/man8/%{name}.8
-%endif
+make install DESTDIR=%{buildroot}
 
 %postun
 # Work around issues where puppet fails to run after a facter update
@@ -106,10 +58,7 @@ rm -rf %{buildroot}
 
 
 %check
-%if %{enable_check}
-rspec spec
-%endif
-
+ctest -V %{?_smp_mflags}
 
 %files
 %doc LICENSE README.md
@@ -120,6 +69,12 @@ rspec spec
 
 
 %changelog
+* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 3.1.4-1
+- Update to 3.1.4
+
+* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.6-1
+- Update to 2.4.6
+
 * Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.4-3
 - Fix el7 build
 
