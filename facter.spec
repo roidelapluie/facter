@@ -19,8 +19,8 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        2.4.4
-Release:        3%{?dist}
+Version:        2.4.6
+Release:        1%{?dist}
 Summary:        Command and ruby library for gathering system information
 
 Group:          System Environment/Base
@@ -120,6 +120,9 @@ rspec spec
 
 
 %changelog
+* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.6-1
+- Update to 2.4.6
+
 * Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.4-3
 - Fix el7 build
 
