@@ -3,8 +3,8 @@ services:
 - docker
 script:
 - mkdir artifacts
-- docker build -t cfgmgmtsig/facter .
-- docker run -v $PWD/artifacts:/artifacts -t cfgmgmtsig/facter mv /root/rpmbuild/RPMS /artifacts
+- docker build -t cfgmgmtsig/travis .
+- docker run -v $PWD/artifacts:/artifacts -t cfgmgmtsig/travis mv /root/rpmbuild/RPMS /artifacts
 - sudo chown -R "$USER:" $PWD/artifacts
 deploy:
   provider: releases
