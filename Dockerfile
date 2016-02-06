@@ -18,6 +18,6 @@ RUN yum-builddep -y /workspace/facter.spec
 
 RUN chown -R bob: /home/bob /workspace
 
-RUN rpmbuild -ba /workspace/facter.spec
+RUN su - bob -c "rpmbuild -ba /workspace/facter.spec"
 
 VOLUME /artifacts
