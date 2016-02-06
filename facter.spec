@@ -20,6 +20,9 @@ BuildRequires:  make
 BuildRequires:  wget
 BuildRequires:  tar
 BuildRequires:  cmake
+BuildRequires:  ruby >= 1.9.0
+BuildRequires:  ruby-devel
+
 
 %description
 Facter is a lightweight program that gathers basic node information about the
