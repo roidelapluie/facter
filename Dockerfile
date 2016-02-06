@@ -13,7 +13,7 @@ RUN mkdir -p /home/bob/rpmbuild/SOURCES
 
 
 
-RUN spectool -C /home/bob/rpmbuil/SOURCES -g /workspace/facter.spec
+RUN spectool -C /home/bob/rpmbuild/SOURCES -g /workspace/facter.spec
 RUN yum-builddep -y /workspace/facter.spec
 
 RUN chown -R bob: /home/bob /workspace
