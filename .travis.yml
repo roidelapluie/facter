@@ -4,7 +4,7 @@ services:
 script:
 - mkdir artifacts
 - docker build -t cfgmgmtsig/travis .
-- docker run -v $PWD/artifacts:/artifacts -t cfgmgmtsig/travis mv /root/rpmbuild/RPMS /artifacts
+- docker run -v $PWD/artifacts:/artifacts -t cfgmgmtsig/travis mv /home/bob/rpmbuild/RPMS /artifacts
 - sudo chown -R "$USER:" $PWD/artifacts
 deploy:
   provider: releases
