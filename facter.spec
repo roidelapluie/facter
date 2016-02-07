@@ -16,7 +16,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  yaml-cpp-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  gcc-c++
+BuildRequires:  gcc >= 4.9
+BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  make
 BuildRequires:  wget
 BuildRequires:  tar
