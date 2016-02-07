@@ -8,6 +8,7 @@ License:        ASL 2.0
 URL:            https://puppetlabs.com/%{name}
 Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+Patch0:         boost.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  boost-devel
@@ -37,6 +38,7 @@ key off the values returned by facts.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %cmake .
