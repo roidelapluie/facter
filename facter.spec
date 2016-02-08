@@ -16,8 +16,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  yaml-cpp-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  gcc >= 4.9
-BuildRequires:  gcc-c++ >= 4.9
+BuildRequires:  devtoolset-3-gcc >= 4.9
+BuildRequires:  devtoolset-3-gcc-c++ >= 4.9
 BuildRequires:  make
 BuildRequires:  wget
 BuildRequires:  tar
@@ -75,13 +75,13 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
-* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 3.1.4-1
+* Fri Feb 05 2016 Julien Pivotto <roidelapluie@inuits.eu> - 3.1.4-1
 - Update to 3.1.4
 
-* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.6-1
+* Fri Feb 05 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.6-1
 - Update to 2.4.6
 
-* Fri Feb 02 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.4-3
+* Fri Feb 05 2016 Julien Pivotto <roidelapluie@inuits.eu> - 2.4.4-3
 - Fix el7 build
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.4-2
